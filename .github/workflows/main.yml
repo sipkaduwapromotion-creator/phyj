@@ -2,32 +2,30 @@ name: Generate Pyjhora EXE
 
 on:
   push:
-    branches: [ "master", "main" ] # ඔයාගේ repo එකේ branch නම අනුව මේක වෙනස් වෙන්න පුළුවන්
+    branches: [ "main" ]  # ඔයාගේ branch එකේ නම වෙනස් නම් ඒක දාන්න
 
 jobs:
   build:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4  # මේක v4 කළා
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5  # මේක v5 කළා
         with:
           python-version: '3.9'
 
       - name: Install Dependencies
         run: |
           pip install pyjhora pyinstaller swisseph
-          # මෙතනට තව අවශ්‍ය ලයිබ්‍රරි තියෙනවා නම් දාන්න පුළුවන්
 
       - name: Create EXE
         run: |
-          # මෙතන main.py වෙනුවට ඔයා run කරන්න ඕන file එකේ නම දෙන්න
-          # උදාහරණයකට pyjhora එකේ තියෙන test.py වගේ එකක් නම් ඒ නම දෙන්න
-          pyinstaller --onefile --noconsole test.py 
+          # ඔයාගේ repo එකේ තියෙන file එකේ නම main.py නෙවෙයි නම් ඒ නම මෙතනට දෙන්න
+          pyinstaller --onefile --noconsole main.py 
 
       - name: Upload EXE
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4  # අන්න ඔතන තමයි v4 වෙන්න ඕනේ
         with:
-          name: Pyjhora_Software
+          name: MyAstroSoftware
           path: dist/*.exe
